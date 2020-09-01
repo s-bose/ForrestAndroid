@@ -14,14 +14,15 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 
+
+
 public class MainActivity extends AppCompatActivity {
-    private final String NAME = "Shiladitya Bose";
-    private final String MAIL = "project@android.com";
-    private final String PASSWORD = "password";
+//    private final String NAME = "Shiladitya Bose";
+//    private final String MAIL = "project@android.com";
+//    private final String PASSWORD = "password";
 
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-
     private TextInputEditText uname, pwd;
     private Button btnLogin, btnRegister;
     @Override
@@ -30,10 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         pwd = findViewById(R.id.UserPassword);
         uname = findViewById(R.id.UserEmail);
-        btnLogin = findViewById(R.id.btn_login);
-
+        btnLogin = (Button) findViewById(R.id.btn_login);
+        btnRegister = (Button) findViewById(R.id.btn_register);
         preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        editor = preferences.edit();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
                 btnLogin.setBackground(getResources().getDrawable(R.drawable.button_color));
                 btnLogin.setTextColor(Color.parseColor("#FFFFFF"));
+                String MAIL = preferences.getString("USER_MAIL", "");
+                String PASSWORD = preferences.getString("USER_PWD", "");
 
                 String mailId = uname.getText().toString().trim();
                 String pass = pwd.getText().toString().trim();
@@ -58,13 +60,21 @@ public class MainActivity extends AppCompatActivity {
 //                    intent.putExtra("Name", NAME);
                     startActivity(intent);
                     Toast.makeText(MainActivity.this, "Login done", Toast.LENGTH_LONG).show();
-                    editor.putString("USER_MAIL", mailId);
-                    editor.putString("USER_NAME", NAME);
-                    editor.apply();
                 }
                 else {
                     Toast.makeText(MainActivity.this, "Login Unsuccessful", Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnRegister.setBackground(getResources().getDrawable(R.drawable.button_color));
+                btnRegister.setTextColor(Color.parseColor("#FFFFFF"));
+                Intent intent1 = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent1);
+////               MainActivity.this.finish();
             }
         });
     }

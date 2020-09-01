@@ -24,8 +24,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     private SharedPreferences preferences;
     SharedPreferences.Editor editor;
 
-    private TextView txtName, txtEmail, txtAge;
-    private String MAIL, USERNAME;
+    private TextView txtName, txtEmail, txtGender, txtProf;
+    private String MAIL, USERNAME, GENDER, WORK;
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -34,18 +34,21 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        txtName = findViewById(R.id.homeUser);
+        txtName = findViewById(R.id.homeName);
         txtEmail = findViewById(R.id.homeEmail);
-        txtAge = findViewById(R.id.homeAge);
+        txtGender = findViewById(R.id.homeGender);
+        txtProf = findViewById(R.id.homeProf);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(HomePageActivity.this);
         editor = preferences.edit();
         MAIL = preferences.getString("USER_MAIL", "");
         USERNAME = preferences.getString("USER_NAME", "");
-
-        txtName.setText(USERNAME);
+        GENDER = preferences.getString("USER_GENDER", "");
+        WORK = preferences.getString("USER_WORK", "");
+        txtName.append(USERNAME);
         txtEmail.append(MAIL);
-        txtAge.append("23");
+        txtGender.append(GENDER);
+        txtProf.append(WORK);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         toolbar = findViewById(R.id.toolbar2);
